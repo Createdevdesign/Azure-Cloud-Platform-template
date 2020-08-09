@@ -1,0 +1,34 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "Redis_azuresamplesnvironment_name": {
+            "defaultValue": "azuresamplesnvironment",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Cache/Redis",
+            "apiVersion": "2019-07-01",
+            "name": "[parameters('Redis_azuresamplesnvironment_name')]",
+            "location": "Southeast Asia",
+            "properties": {
+                "sku": {
+                    "name": "Basic",
+                    "family": "C",
+                    "capacity": 0
+                },
+                "enableNonSslPort": false,
+                "redisConfiguration": {
+                    "maxclients": "256",
+                    "maxmemory-reserved": "0",
+                    "maxfragmentationmemory-reserved": "0",
+                    "maxmemory-policy": "volatile-lru",
+                    "maxmemory-delta": "0"
+                }
+            }
+        }
+    ]
+}

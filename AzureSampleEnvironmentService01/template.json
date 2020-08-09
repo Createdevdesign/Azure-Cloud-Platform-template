@@ -1,0 +1,328 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sites_AzureSampleEnvironmentService01_name": {
+            "defaultValue": "AzureSampleEnvironmentService01",
+            "type": "String"
+        },
+        "serverfarms_ASP_AzureSampleEnvironment_a08d_externalid": {
+            "defaultValue": "/subscriptions/91ffe787-557e-4740-a290-3904e8303bac/resourceGroups/AzureSampleEnvironment/providers/Microsoft.Web/serverfarms/ASP-AzureSampleEnvironment-a08d",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('sites_AzureSampleEnvironmentService01_name')]",
+            "location": "Southeast Asia",
+            "kind": "app",
+            "properties": {
+                "enabled": true,
+                "hostNameSslStates": [
+                    {
+                        "name": "azuresampleenvironmentservice01.azurewebsites.net",
+                        "sslState": "Disabled",
+                        "hostType": "Standard"
+                    },
+                    {
+                        "name": "azuresampleenvironmentservice01.scm.azurewebsites.net",
+                        "sslState": "Disabled",
+                        "hostType": "Repository"
+                    }
+                ],
+                "serverFarmId": "[parameters('serverfarms_ASP_AzureSampleEnvironment_a08d_externalid')]",
+                "reserved": false,
+                "isXenon": false,
+                "hyperV": false,
+                "siteConfig": {},
+                "scmSiteAlsoStopped": false,
+                "clientAffinityEnabled": true,
+                "clientCertEnabled": false,
+                "hostNamesDisabled": false,
+                "containerSize": 0,
+                "dailyMemoryTimeQuota": 0,
+                "httpsOnly": false,
+                "redundancyMode": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/config",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_AzureSampleEnvironmentService01_name'), '/web')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_AzureSampleEnvironmentService01_name'))]"
+            ],
+            "properties": {
+                "numberOfWorkers": 1,
+                "defaultDocuments": [
+                    "Default.htm",
+                    "Default.html",
+                    "Default.asp",
+                    "index.htm",
+                    "index.html",
+                    "iisstart.htm",
+                    "default.aspx",
+                    "index.php",
+                    "hostingstart.html"
+                ],
+                "netFrameworkVersion": "v4.0",
+                "nodeVersion": "12.13.0",
+                "requestTracingEnabled": false,
+                "remoteDebuggingEnabled": false,
+                "httpLoggingEnabled": false,
+                "logsDirectorySizeLimit": 35,
+                "detailedErrorLoggingEnabled": false,
+                "publishingUsername": "$AzureSampleEnvironmentService01",
+                "azureStorageAccounts": {},
+                "scmType": "LocalGit",
+                "use32BitWorkerProcess": true,
+                "webSocketsEnabled": false,
+                "alwaysOn": false,
+                "managedPipelineMode": "Integrated",
+                "virtualApplications": [
+                    {
+                        "virtualPath": "/",
+                        "physicalPath": "site\\wwwroot",
+                        "preloadEnabled": false
+                    }
+                ],
+                "loadBalancing": "LeastRequests",
+                "experiments": {
+                    "rampUpRules": []
+                },
+                "autoHealEnabled": false,
+                "localMySqlEnabled": false,
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictionsUseMain": false,
+                "http20Enabled": false,
+                "minTlsVersion": "1.2",
+                "ftpsState": "AllAllowed",
+                "reservedInstanceCount": 0
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_AzureSampleEnvironmentService01_name'), '/22b28ba344585a329d667b1bdab5c4827e49adf5')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_AzureSampleEnvironmentService01_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "sangeevansiventhirarajah@gmail.com",
+                "author": "Sangeevan",
+                "deployer": "$AzureSampleEnvironmentService01",
+                "message": "Path\n",
+                "start_time": "2020-08-07T15:10:40.0088816Z",
+                "end_time": "2020-08-07T15:10:47.1494937Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_AzureSampleEnvironmentService01_name'), '/26dfdc30dacad49c2072e93ec87066c53317d003')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_AzureSampleEnvironmentService01_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "sangeevansiventhirarajah@gmail.com",
+                "author": "Sangeevan",
+                "deployer": "$AzureSampleEnvironmentService01",
+                "message": "changes\n",
+                "start_time": "2020-08-08T06:30:36.5242901Z",
+                "end_time": "2020-08-08T06:30:44.0400289Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_AzureSampleEnvironmentService01_name'), '/2a2edcede8f17eb177430bc81dd0c88867266efa')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_AzureSampleEnvironmentService01_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "sangeevansiventhirarajah@gmail.com",
+                "author": "Sangeevan",
+                "deployer": "$AzureSampleEnvironmentService01",
+                "message": "change\n",
+                "start_time": "2020-08-08T10:22:35.777713Z",
+                "end_time": "2020-08-08T10:22:43.1371527Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_AzureSampleEnvironmentService01_name'), '/377014fc7ade5405c26ae9263722b524ea96b7a7')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_AzureSampleEnvironmentService01_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "sangeevansiventhirarajah@gmail.com",
+                "author": "Sangeevan",
+                "deployer": "$AzureSampleEnvironmentService01",
+                "message": "final\n",
+                "start_time": "2020-08-07T11:23:16.5260732Z",
+                "end_time": "2020-08-07T11:23:22.7605843Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_AzureSampleEnvironmentService01_name'), '/a43a2280479a8dee161a603436a992800e4eed64')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_AzureSampleEnvironmentService01_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "sangeevansiventhirarajah@gmail.com",
+                "author": "Sangeevan",
+                "deployer": "$AzureSampleEnvironmentService01",
+                "message": "New\n",
+                "start_time": "2020-08-07T16:46:57.6912534Z",
+                "end_time": "2020-08-07T16:47:05.5362164Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_AzureSampleEnvironmentService01_name'), '/c1d749acdf421a60272140f886e3faac9de9b352')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_AzureSampleEnvironmentService01_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "sangeevansiventhirarajah@gmail.com",
+                "author": "Sangeevan",
+                "deployer": "$AzureSampleEnvironmentService01",
+                "message": "changes\n",
+                "start_time": "2020-08-08T13:09:34.0032873Z",
+                "end_time": "2020-08-08T13:09:41.6752868Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_AzureSampleEnvironmentService01_name'), '/cb802972d413c958ae792c8340cd5a9b5c39ab1a')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_AzureSampleEnvironmentService01_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "sangeevansiventhirarajah@gmail.com",
+                "author": "Sangeevan",
+                "deployer": "$AzureSampleEnvironmentService01",
+                "message": "json\n",
+                "start_time": "2020-08-07T10:42:11.3707826Z",
+                "end_time": "2020-08-07T10:42:17.8708175Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_AzureSampleEnvironmentService01_name'), '/e0bcabc3c5be5dc7b412e29943b43239e89af639')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_AzureSampleEnvironmentService01_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "sangeevansiventhirarajah@gmail.com",
+                "author": "Sangeevan",
+                "deployer": "$AzureSampleEnvironmentService01",
+                "message": "cache\n",
+                "start_time": "2020-08-08T17:09:12.8343372Z",
+                "end_time": "2020-08-08T17:09:30.0844479Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_AzureSampleEnvironmentService01_name'), '/f269e6df1d53bb3ba6ff7c70853171bfbc81db61')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_AzureSampleEnvironmentService01_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "sangeevansiventhirarajah@gmail.com",
+                "author": "Sangeevan",
+                "deployer": "$AzureSampleEnvironmentService01",
+                "message": "new model\n",
+                "start_time": "2020-08-07T15:07:39.5103307Z",
+                "end_time": "2020-08-07T15:07:46.8698379Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_AzureSampleEnvironmentService01_name'), '/f49a02f18aad1b4c007f62dc84e5dad54fb16bcd')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_AzureSampleEnvironmentService01_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "sangeevansiventhirarajah@gmail.com",
+                "author": "Sangeevan",
+                "deployer": "$AzureSampleEnvironmentService01",
+                "message": "change\n",
+                "start_time": "2020-08-09T15:10:28.2867303Z",
+                "end_time": "2020-08-09T15:10:36.255598Z",
+                "active": true
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/hostNameBindings",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_AzureSampleEnvironmentService01_name'), '/', parameters('sites_AzureSampleEnvironmentService01_name'), '.azurewebsites.net')]",
+            "location": "Southeast Asia",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_AzureSampleEnvironmentService01_name'))]"
+            ],
+            "properties": {
+                "siteName": "AzureSampleEnvironmentService01",
+                "hostNameType": "Verified"
+            }
+        }
+    ]
+}

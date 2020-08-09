@@ -1,0 +1,62 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "frontdoorwebapplicationfirewallpolicies_azuresampleenvironmentfirewall_name": {
+            "defaultValue": "azuresampleenvironmentfirewall",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/frontdoorwebapplicationfirewallpolicies",
+            "apiVersion": "2020-04-01",
+            "name": "[parameters('frontdoorwebapplicationfirewallpolicies_azuresampleenvironmentfirewall_name')]",
+            "location": "Global",
+            "properties": {
+                "policySettings": {
+                    "enabledState": "Enabled",
+                    "mode": "Prevention",
+                    "customBlockResponseStatusCode": 403
+                },
+                "customRules": {
+                    "rules": [
+                        {
+                            "name": "azuresampleenvironmentpathblock",
+                            "enabledState": "Enabled",
+                            "priority": 1,
+                            "ruleType": "MatchRule",
+                            "rateLimitDurationInMinutes": 1,
+                            "rateLimitThreshold": 100,
+                            "matchConditions": [
+                                {
+                                    "matchVariable": "RequestUri",
+                                    "operator": "Contains",
+                                    "negateCondition": false,
+                                    "matchValue": [
+                                        "unauthorisedaccess"
+                                    ],
+                                    "transforms": [
+                                        "UrlDecode"
+                                    ]
+                                }
+                            ],
+                            "action": "Block"
+                        }
+                    ]
+                },
+                "managedRules": {
+                    "managedRuleSets": [
+                        {
+                            "ruleSetType": "DefaultRuleSet",
+                            "ruleSetVersion": "1.0",
+                            "ruleGroupOverrides": [],
+                            "exclusions": []
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
